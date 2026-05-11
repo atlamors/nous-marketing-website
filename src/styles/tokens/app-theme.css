@@ -1,0 +1,64 @@
+:root,
+.nous-app-theme,
+.nous-design-system {
+  --nous-fg-white: var(--nous-color-fg-white);
+  --nous-fg-bright: var(--nous-color-fg-bright);
+  --nous-fg-title: var(--nous-color-fg-title);
+  --nous-fg-primary: var(--nous-color-fg-primary);
+  --nous-fg-body-strong: var(--nous-color-fg-body-strong);
+  --nous-fg-body: var(--nous-color-fg-body);
+  --nous-fg-secondary: var(--nous-color-fg-secondary);
+  --nous-fg-placeholder: var(--nous-color-fg-placeholder);
+  --nous-fg-muted: var(--nous-color-fg-muted);
+  --nous-fg-subtle: var(--nous-color-fg-subtle);
+  --nous-fg-quieter: var(--nous-color-fg-quieter);
+  --nous-fg-minimal: var(--nous-color-fg-minimal);
+
+  --nous-bg-canvas: var(--nous-color-black-950);
+  --nous-bg-chrome: var(--nous-color-black-950);
+  --nous-bg-shell: var(--nous-color-black-925);
+  --nous-bg-panel: var(--nous-color-black-900);
+  --nous-bg-input: var(--nous-color-black-875);
+  --nous-bg-control-bar: var(--nous-color-black-850);
+  --nous-bg-inset: var(--nous-color-black-825);
+  --nous-bg-elevated: var(--nous-color-black-800);
+  --nous-bg-control-active: var(--nous-color-black-775);
+  --nous-bg-overlay: var(--nous-color-black-700);
+  --nous-bg-selected-subtle: #e9e9ff06;
+  --nous-bg-card-muted: var(--nous-alpha-graphite-08);
+  --nous-bg-card: var(--nous-alpha-graphite-12);
+  --nous-bg-control: var(--nous-alpha-graphite-16);
+  --nous-bg-message: var(--nous-alpha-graphite-20);
+  --nous-bg-overlay-glass: rgba(12, 12, 13, 0.92);
+
+  --nous-stroke-ghost: var(--nous-alpha-white-01);
+  --nous-stroke-soft: var(--nous-alpha-white-02);
+  --nous-stroke-subtle: var(--nous-alpha-white-04);
+  --nous-stroke-default: var(--nous-alpha-white-06);
+  --nous-stroke-strong: var(--nous-alpha-white-10);
+  --nous-stroke-emphasis: var(--nous-alpha-white-16);
+
+  --nous-accent-info: var(--nous-color-blue-500);
+  --nous-accent-info-soft: var(--nous-color-blue-300);
+  --nous-accent-info-fg: var(--nous-color-blue-text);
+  --nous-accent-info-fg-muted: var(--nous-color-blue-text-muted);
+  --nous-accent-info-fg-strong: var(--nous-color-blue-text-strong);
+  --nous-accent-info-bg-subtle: rgba(91, 124, 255, 0.1);
+  --nous-accent-info-bg: rgba(91, 124, 255, 0.13);
+
+  --nous-accent-workspace: var(--nous-color-purple-500);
+  --nous-accent-workspace-deep: var(--nous-color-purple-700);
+  --nous-accent-success: var(--nous-color-green-500);
+  --nous-accent-success-deep: var(--nous-color-green-700);
+  --nous-accent-success-fg: var(--nous-color-green-text);
+  --nous-accent-success-bg: rgba(29, 255, 17, 0.07);
+  --nous-accent-warning: var(--nous-color-yellow-500);
+  --nous-accent-warning-bg: rgba(240, 196, 0, 0.1);
+  --nous-accent-warning-bg-muted: rgba(240, 196, 0, 0.09);
+
+  --nous-shadow-card:
+    inset 0 1px 0 var(--nous-alpha-white-035), 0 18px 54px rgba(0, 0, 0, 0.32);
+  --nous-shadow-overlay:
+    inset 0 1px 0 var(--nous-alpha-white-05), 0 28px 90px rgba(0, 0, 0, 0.62);
+  --nous-shadow-drawer: -8px -8px 14px 7px rgba(7, 7, 7, 0.75);
+}

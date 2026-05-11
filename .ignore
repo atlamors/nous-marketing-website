@@ -1,0 +1,16 @@
+# Keep OpenCode project guidance visible even when tools honor ignore files.
+!.opencode
+!.opencode/**
+!docs
+!docs/**
+
+.next
+.next/**
+node_modules
+node_modules/**
+coverage
+coverage/**
+playwright-report
+playwright-report/**
+test-results
+test-results/**
