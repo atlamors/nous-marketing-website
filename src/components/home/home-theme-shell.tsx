@@ -111,7 +111,9 @@ function SiteHeader() {
                             />
                         </svg>
                     </a>
-                    <a className={navLinkClass} href="/login">{homeCopy.navigation.links.login}</a>
+                    <span aria-disabled="true" className={cn(navLinkClass, "cursor-not-allowed opacity-45")} role="link">
+                        {homeCopy.navigation.links.login}
+                    </span>
                     <DownloadCtaLink className={primaryNavActionClass} icon={false} label="download" variant="link" />
                 </div>
                 <button
@@ -196,7 +198,7 @@ function MobileMenu({ isOpen, onClose, onNavigate }: { isOpen: boolean; onClose:
                         <div className="flex items-center justify-between gap-3">
                             <span aria-hidden="true" />
                             <div className="flex items-center gap-2">
-                                <MobileMenuFooterLink href="/login" label={homeCopy.navigation.links.login} onNavigate={onNavigate} />
+                                <MobileMenuFooterLink disabled label={homeCopy.navigation.links.login} onNavigate={onNavigate} />
                                 <MobileMenuGithubLink onNavigate={onNavigate} />
                             </div>
                         </div>
@@ -252,11 +254,23 @@ function MobileResourceSection({ onNavigate, section }: { onNavigate: () => void
     );
 }
 
-function MobileMenuFooterLink({ href, label, onNavigate }: { href: string; label: string; onNavigate: () => void }) {
+function MobileMenuFooterLink({ disabled = false, href, label, onNavigate }: { disabled?: boolean; href?: string; label: string; onNavigate: () => void }) {
+    if (disabled) {
+        return (
+            <span
+                aria-disabled="true"
+                className="rounded-full px-3 py-2 text-sm font-medium text-[var(--nous-fg-muted)] opacity-45"
+                role="link"
+            >
+                {label}
+            </span>
+        );
+    }
+
     return (
         <a
             className="rounded-full px-3 py-2 text-sm font-medium text-[var(--nous-fg-muted)] transition hover:bg-white/[0.04] hover:text-[var(--nous-fg-title)] focus-visible:bg-white/[0.04] focus-visible:text-[var(--nous-fg-title)] focus-visible:outline-none"
-            href={href}
+            href={href ?? "#"}
             onClick={onNavigate}
         >
             {label}
