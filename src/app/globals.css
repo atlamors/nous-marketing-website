@@ -148,6 +148,16 @@ body:has(.nous-marketing-shell) {
   }
 }
 
+@keyframes nous-mobile-menu-bg-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes nous-mobile-menu-item-in {
   from {
     opacity: 0;
@@ -160,10 +170,30 @@ body:has(.nous-marketing-shell) {
   }
 }
 
+@keyframes nous-mobile-menu-item-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
 .nous-mobile-menu-bg-in {
   animation: nous-mobile-menu-bg-in 320ms ease-out both;
 }
 
+.nous-mobile-menu-bg-out {
+  animation: nous-mobile-menu-bg-out 320ms ease-out both;
+}
+
 .nous-mobile-menu-item-in {
-  animation: nous-mobile-menu-item-in 220ms ease-out both;
+  animation: nous-mobile-menu-item-in 180ms ease-out both;
+}
+
+.nous-mobile-menu-item-out {
+  animation: nous-mobile-menu-item-out 140ms ease-out both;
 }

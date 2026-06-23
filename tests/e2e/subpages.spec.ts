@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 const pages = [
   ["/download", "Download Nue."],
-  ["/pricing", "Start free. Upgrade when you want Nue to run more for you."],
+  ["/pricing", "Pricing"],
   ["/careers", "Help build the future of personal agents."],
   ["/resources", "Resources for building with Nue."],
   ["/product", "Nue turns chat into a private operating system for your agents."],

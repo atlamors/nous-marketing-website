@@ -143,9 +143,39 @@ function MobileMenuToggleIcon({ open }: { open: boolean }) {
 
 function MobileMenu({ isOpen, onNavigate }: { isOpen: boolean; onNavigate: () => void }) {
     const [openSectionId, setOpenSectionId] = useState<MobileMenuSectionId | null>(null);
+    const [shouldRender, setShouldRender] = useState(false);
+    const [isClosing, setIsClosing] = useState(false);
 
     useEffect(() => {
-        if (!isOpen) {
+        let frame = 0;
+        let timeout: ReturnType<typeof setTimeout> | undefined;
+
+        if (isOpen) {
+            frame = window.requestAnimationFrame(() => {
+                setShouldRender(true);
+                setIsClosing(false);
+            });
+        } else if (shouldRender) {
+            frame = window.requestAnimationFrame(() => {
+                setIsClosing(true);
+                timeout = setTimeout(() => {
+                    setShouldRender(false);
+                    setIsClosing(false);
+                    setOpenSectionId(null);
+                }, 320);
+            });
+        }
+
+        return () => {
+            window.cancelAnimationFrame(frame);
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+        };
+    }, [isOpen, shouldRender]);
+
+    useEffect(() => {
+        if (!shouldRender || isClosing) {
             return;
         }
 
@@ -159,7 +189,7 @@ function MobileMenu({ isOpen, onNavigate }: { isOpen: boolean; onNavigate: () =>
             document.body.style.overflow = previousBodyOverflow;
             document.documentElement.style.overflow = previousDocumentOverflow;
         };
-    }, [isOpen]);
+    }, [shouldRender, isClosing]);
 
     const toggleSection = (sectionId: MobileMenuSectionId) => {
         setOpenSectionId((currentSectionId) => currentSectionId === sectionId ? null : sectionId);
@@ -169,13 +199,13 @@ function MobileMenu({ isOpen, onNavigate }: { isOpen: boolean; onNavigate: () =>
         onNavigate();
     };
 
-    if (!isOpen) {
+    if (!shouldRender) {
         return null;
     }
 
     return (
         <div
-            className="nous-mobile-menu-bg-in fixed inset-0 z-40 flex flex-col overflow-hidden text-[var(--nous-page-fg)] backdrop-blur-2xl sm:hidden"
+            className={cn("fixed inset-0 z-40 flex flex-col overflow-hidden text-[var(--nous-page-fg)] backdrop-blur-2xl sm:hidden", isClosing ? "pointer-events-none nous-mobile-menu-bg-out" : "nous-mobile-menu-bg-in")}
             id="mobile-site-menu"
             style={{ backgroundColor: "rgba(3, 3, 5, 0.9)" }}
         >
@@ -188,25 +218,25 @@ function MobileMenu({ isOpen, onNavigate }: { isOpen: boolean; onNavigate: () =>
                 <div aria-hidden="true" />
                 <div className="min-h-0 overflow-x-hidden overflow-y-auto px-3 pb-3 pt-3">
                     <div className="grid">
-                        <div className="will-change-transform" style={mobileMenuEntranceStyle(80)}> 
+                        <div className="will-change-transform" style={mobileMenuItemAnimationStyle(80, isClosing)}> 
                             <MobileMenuAccordionSection id="product" isOpen={openSectionId === "product"} label={homeCopy.navigation.productLabel} onToggle={toggleSection}>
                                 {homeCopy.navigation.productPrimaryLinks.map((link) => (
                                     <MobileMenuLink description={link.description} href={link.href} key={link.href} label={link.label} onNavigate={handleNavigate} />
                                 ))}
                             </MobileMenuAccordionSection>
                         </div>
-                        <div className="will-change-transform" style={mobileMenuEntranceStyle(140)}> 
+                        <div className="will-change-transform" style={mobileMenuItemAnimationStyle(140, isClosing)}> 
                             <MobileMenuAccordionSection id="resources" isOpen={openSectionId === "resources"} label={homeCopy.navigation.resourcesLabel} onToggle={toggleSection}>
                                 {homeCopy.navigation.resourceSections.map((section) => (
                                     <MobileResourceSection key={section.label} onNavigate={handleNavigate} section={section} />
                                 ))}
                             </MobileMenuAccordionSection>
                         </div>
-                        <div className="will-change-transform" style={mobileMenuEntranceStyle(200)}> 
+                        <div className="will-change-transform" style={mobileMenuItemAnimationStyle(200, isClosing)}> 
                             <MobileMenuLink description="Compare free, Pro, Max, and team options." href="/pricing" label={homeCopy.navigation.links.pricing} onNavigate={handleNavigate} prominent />
                         </div>
                     </div>
-                    <div className="pt-5 will-change-transform" style={mobileMenuEntranceStyle(260)}>
+                    <div className="pt-5 will-change-transform" style={mobileMenuItemAnimationStyle(260, isClosing)}>
                         <div className="flex items-center justify-center gap-4 pt-1">
                             <MobileMenuFooterLink href="/login" label={homeCopy.navigation.links.login} onNavigate={handleNavigate} />
                             <DownloadCtaLink className="[&>a]:h-10 [&>a]:px-4" icon={false} label="download" />
@@ -218,9 +248,15 @@ function MobileMenu({ isOpen, onNavigate }: { isOpen: boolean; onNavigate: () =>
     );
 }
 
-function mobileMenuEntranceStyle(delayMs: number): CSSProperties {
+function mobileMenuItemAnimationStyle(delayMs: number, isClosing: boolean): CSSProperties {
+    if (isClosing) {
+        return {
+            animation: `nous-mobile-menu-item-out 140ms ease-out 0ms both`
+        };
+    }
+
     return {
-        animation: `nous-mobile-menu-item-in 220ms ease-out ${delayMs}ms both`
+        animation: `nous-mobile-menu-item-in 180ms ease-out ${delayMs}ms both`
     };
 }
 
